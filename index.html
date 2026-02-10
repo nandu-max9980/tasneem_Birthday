@@ -566,6 +566,17 @@
         <div class="line"></div>
         <h1>Happy Birthday</h1>
         <p class="sub">Tasneem ✨</p>
+        <button id="enter-btn" style="
+            margin-top: 32px; padding: 14px 40px;
+            background: transparent; border: 1px solid rgba(212,175,55,0.5);
+            color: #D4AF37; font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+            border-radius: 50px; cursor: pointer;
+            transition: all 0.3s ease; opacity: 0; transform: translateY(20px);
+        " onmouseover="this.style.background='#D4AF37';this.style.color='#121212';"
+            onmouseout="this.style.background='transparent';this.style.color='#D4AF37';">
+            ▶ Click to Enter
+        </button>
     </div>
 
     <!-- ╔════════════════════════════════════════════╗ -->
@@ -816,30 +827,36 @@
     <!-- ╚════════════════════════════════════════════╝ -->
     <script>
         gsap.registerPlugin(ScrollTrigger);
+        let musicPlaying = false;
 
         /* ─── Preloader ─── */
-        const preloaderTL = gsap.timeline({
-            onComplete: () => {
-                gsap.to('#preloader', {
-                    yPercent: -100, duration: 0.8, ease: 'power3.inOut', onComplete: () => {
-                        document.getElementById('preloader').style.display = 'none';
-                    }
-                });
-                gsap.to('#main-content', { opacity: 1, duration: 0.5, delay: 0.3 });
-                initAnimations();
-
-                // Attempt to play music after preloader
-                const bgMusic = document.getElementById('bg-music');
-                bgMusic.volume = 0.1;
-                bgMusic.play().catch(e => console.log("Audio autoplay blocked"));
-            }
-        });
+        // Step 1: Animate the preloader text in
+        const preloaderTL = gsap.timeline();
 
         preloaderTL
             .to('#preloader .line', { scaleX: 1, duration: 0.8, ease: 'power2.out' })
             .to('#preloader h1', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3')
             .to('#preloader .sub', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-            .to({}, { duration: 0.8 });
+            .to('#enter-btn', { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.2');
+
+        // Step 2: Wait for click on the Enter button
+        document.getElementById('enter-btn').addEventListener('click', () => {
+            // START MUSIC — guaranteed to work because this is a user gesture!
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.volume = 0.1;
+            bgMusic.play();
+            musicPlaying = true;
+            document.getElementById('music-btn').classList.add('playing');
+
+            // Slide preloader away and reveal the site
+            gsap.to('#preloader', {
+                yPercent: -100, duration: 0.8, ease: 'power3.inOut', onComplete: () => {
+                    document.getElementById('preloader').style.display = 'none';
+                }
+            });
+            gsap.to('#main-content', { opacity: 1, duration: 0.5, delay: 0.3 });
+            initAnimations();
+        });
 
         /* ─── Main Animations ─── */
         function initAnimations() {
@@ -985,21 +1002,9 @@
         /* ─── Music Toggle ─── */
         const musicBtn = document.getElementById('music-btn');
         const bgMusic = document.getElementById('bg-music');
-        let musicPlaying = false;
 
-        // Set volume to 10%
+        // Volume is set to 10%
         bgMusic.volume = 0.1;
-
-        // Try to autoplay
-        const playPromise = bgMusic.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                musicPlaying = true;
-                musicBtn.classList.add('playing');
-            }).catch(error => {
-                console.log("Autoplay prevented by browser. User interaction required.");
-            });
-        }
 
         musicBtn.addEventListener('click', () => {
             if (musicPlaying) {
