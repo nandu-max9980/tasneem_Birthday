@@ -323,6 +323,14 @@
             }
         }
 
+        /* Fix for mobile-rotated videos */
+        @media (max-width: 768px) {
+            .rotated-video {
+                transform: rotate(90deg) scale(1.8);
+                transform-origin: center center;
+            }
+        }
+
         .bento-item {
             border-radius: 12px;
             overflow: hidden;
@@ -741,9 +749,9 @@
                     <img src="images/IMG_20260210_171424953.jpg" alt="Memory" loading="lazy" />
                 </div>
                 <!-- 6 – video, wide -->
-                <div class="bento-item bento-span-2">
-                    <video src="images/VID_20260210_172320437.mp4" muted playsinline loop preload="metadata"
-                        onmouseenter="this.play()" onmouseleave="this.pause()"></video>
+                <div class="bento-item bento-span-2" style="overflow:hidden;">
+                    <video class="rotated-video" src="images/VID_20260210_172320437.mp4" muted playsinline loop
+                        preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>
                 </div>
                 <!-- 7 -->
                 <div class="bento-item gallery-item" data-src="images/IMG_20260210_172112318.jpg">
