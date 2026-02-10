@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Tasneem 🎂</title>
+    <meta name="description"
+        content="A premium birthday tribute for Tasneem — celebrating friendship, code, and unforgettable memories." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#121212',
+                        'charcoal-light': '#1a1a1a',
+                        'charcoal-card': '#1e1e1e',
+                        gold: '#D4AF37',
+                        'gold-dim': '#B8962E',
+                        cream: '#F5F5F0',
+                        'cream-dim': '#A0A09A',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- GSAP + ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* ─── Base ─── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #121212;
+            color: #F5F5F0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ─── Scrollbar ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+
+        /* ─── Preloader ─── */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #121212;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #preloader .line {
+            width: 60px;
+            height: 2px;
+            background: #D4AF37;
+            margin-bottom: 24px;
+            transform: scaleX(0);
+        }
+
+        #preloader h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #F5F5F0;
+            opacity: 0;
+        }
+
+        #preloader .sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #D4AF37;
+            margin-top: 12px;
+            opacity: 0;
+        }
+
+        /* ─── Floating Blobs ─── */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(100px);
+            opacity: 0.12;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: #D4AF37;
+            top: 10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: #6B3FA0;
+            bottom: 15%;
+            right: -8%;
+        }
+
+        .blob-3 {
+            width: 350px;
+            height: 350px;
+            background: #D4AF37;
+            top: 50%;
+            left: 40%;
+        }
+
+        /* ─── Section Heading ─── */
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #F5F5F0;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subheading {
+            text-align: center;
+            color: #A0A09A;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        /* ─── Hero ─── */
+        .hero-photo {
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.15);
+            object-fit: cover;
+        }
+
+        /* ─── Letter Book ─── */
+        .book-wrapper {
+            perspective: 1200px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .book {
+            position: relative;
+            background: linear-gradient(135deg, #1a1714 0%, #1e1b16 50%, #1a1714 100%);
+            border-radius: 8px;
+            padding: 48px 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow:
+                0 0 80px rgba(212, 175, 55, 0.05),
+                inset 0 0 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .book::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            bottom: 12px;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.15) 20%, rgba(212, 175, 55, 0.15) 80%, transparent);
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .book {
+                padding: 56px 60px;
+            }
+
+            .book::before {
+                display: none;
+            }
+        }
+
+        .book-spine {
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            bottom: 10px;
+            width: 6px;
+            border-radius: 4px 0 0 4px;
+            background: linear-gradient(to bottom, #D4AF37, #B8962E, #D4AF37);
+        }
+
+        .book-page {
+            position: relative;
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+        }
+
+        .book-page:last-child {
+            border-bottom: none;
+        }
+
+        .book-page .page-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.7rem;
+            color: rgba(212, 175, 55, 0.4);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .book-page h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+
+        .book-page p {
+            color: #c8c3b8;
+            font-size: 0.95rem;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        .book-page .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #D4AF37;
+            font-size: 1.1rem;
+            margin-top: 16px;
+        }
+
+        .book-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: rgba(212, 175, 55, 0.25);
+            border-style: solid;
+        }
+
+        .book-corner.tl {
+            top: 20px;
+            left: 20px;
+            border-width: 1px 0 0 1px;
+        }
+
+        .book-corner.tr {
+            top: 20px;
+            right: 20px;
+            border-width: 1px 1px 0 0;
+        }
+
+        .book-corner.bl {
+            bottom: 20px;
+            left: 20px;
+            border-width: 0 0 1px 1px;
+        }
+
+        .book-corner.br {
+            bottom: 20px;
+            right: 20px;
+            border-width: 0 1px 1px 0;
+        }
+
+        /* ─── Bento Grid ─── */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 220px;
+            gap: 12px;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 200px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 160px;
+            }
+        }
+
+        .bento-item {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .bento-item img,
+        .bento-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .bento-item:hover img,
+        .bento-item:hover video {
+            transform: scale(1.06);
+        }
+
+        .bento-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            pointer-events: none;
+            transition: border-color 0.3s;
+        }
+
+        .bento-item:hover::after {
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .bento-span-2 {
+            grid-column: span 2;
+        }
+
+        .bento-span-row {
+            grid-row: span 2;
+        }
+
+        /* ─── Terminal ─── */
+        .terminal {
+            background: #0D0D0D;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.06);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .terminal-bar {
+            background: #1a1a1a;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #C8C8C8;
+            min-height: 220px;
+        }
+
+        .terminal-body .prompt {
+            color: #D4AF37;
+        }
+
+        .terminal-body .keyword {
+            color: #C678DD;
+        }
+
+        .terminal-body .string {
+            color: #98C379;
+        }
+
+        .terminal-body .comment {
+            color: #5C6370;
+            font-style: italic;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: #D4AF37;
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* ─── Music Toggle ─── */
+        #music-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #D4AF37;
+            font-size: 1.2rem;
+        }
+
+        #music-btn:hover {
+            border-color: #D4AF37;
+            transform: scale(1.1);
+        }
+
+        #music-btn.playing .bar {
+            animation: musicBar 0.6s ease-in-out infinite alternate;
+        }
+
+        .music-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 18px;
+        }
+
+        .bar {
+            width: 3px;
+            background: #D4AF37;
+            border-radius: 2px;
+            height: 6px;
+            transition: height 0.2s;
+        }
+
+        .bar:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .bar:nth-child(2) {
+            animation-delay: 0.15s;
+            height: 12px;
+        }
+
+        .bar:nth-child(3) {
+            animation-delay: 0.3s;
+            height: 8px;
+        }
+
+        .bar:nth-child(4) {
+            animation-delay: 0.45s;
+            height: 16px;
+        }
+
+        @keyframes musicBar {
+            0% {
+                height: 4px;
+            }
+
+            100% {
+                height: 18px;
+            }
+        }
+
+        /* ─── Footer ─── */
+        .footer-heart {
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+            color: #D4AF37;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.25);
+            }
+        }
+
+        /* ─── Lightbox ─── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 0 80px rgba(212, 175, 55, 0.15);
+        }
+
+        #lightbox.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ╔════════════════════════════════════════════╗ -->
+    <!-- ║            FLOATING BLOBS                  ║ -->
+    <!-- ╚════════════════════════════════════════════╝ -->
+    <div class="blob blob-1" id="blob1"></div>
+    <div class="blob blob-2" id="blob2"></div>
+    <div class="blob blob-3" id="blob3"></div>
+
+    <!-- ╔════════════════════════════════════════════╗ -->
+    <!-- ║            PRELOADER                       ║ -->
+    <!-- ╚════════════════════════════════════════════╝ -->
+    <div id="preloader">
+        <div class="line"></div>
+        <h1>Happy Birthday</h1>
+        <p class="sub">Tasneem ✨</p>
+    </div>
+
+    <!-- ╔════════════════════════════════════════════╗ -->
+    <!-- ║            MUSIC TOGGLE                    ║ -->
+    <!-- ╚════════════════════════════════════════════╝ -->
+    <button id="music-btn" aria-label="Toggle music">
+        <div class="music-bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </button>
+    <audio id="bg-music" loop autoplay preload="auto">
+        <source src="music/music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- ╔════════════════════════════════════════════╗ -->
+    <!-- ║            LIGHTBOX                        ║ -->
+    <!-- ╚════════════════════════════════════════════╝ -->
+    <div id="lightbox"><img src="" alt="Preview" /></div>
+
+    <!-- ╔════════════════════════════════════════════╗ -->
+    <!-- ║            MAIN CONTENT                    ║ -->
+    <!-- ╚════════════════════════════════════════════╝ -->
+    <main id="main-content" style="opacity:0;">
+
+        <!-- ── HERO ── -->
+        <section id="hero" class="relative min-h-screen flex items-center px-6 md:px-16 lg:px-24 overflow-hidden">
+            <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-12 py-20 lg:py-0">
+
+                <!-- Left: Typography -->
+                <div class="lg:w-1/2 text-center lg:text-left hero-text">
+                    <p class="text-gold text-xs tracking-[0.25em] uppercase mb-4 font-sans">February 11, 2026</p>
+                    <h1
+                        class="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.05] mb-6 char-reveal">
+                        Happy<br />
+                        <span class="italic text-gold">Birthday,</span><br />
+                        Tasneem
+                    </h1>
+                    <p class="text-cream-dim font-light text-base md:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
+                        A tribute to an incredible friend, a brilliant coder, and the most inspiring person I know.
+                        Here's to another year of magic. 🥂
+                    </p>
+                    <div class="mt-8 flex items-center gap-4 justify-center lg:justify-start">
+                        <a href="#letter"
+                            class="px-6 py-3 bg-gold text-charcoal font-semibold text-sm rounded-full hover:bg-gold-dim transition-colors">
+                            Read My Note
+                        </a>
+                        <a href="#gallery"
+                            class="px-6 py-3 border border-gold/30 text-gold text-sm rounded-full hover:border-gold transition-colors">
+                            View Gallery
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Floating Photo -->
+                <div class="lg:w-1/2 flex justify-center hero-photo-wrap">
+                    <div class="relative">
+                        <div
+                            class="absolute -inset-4 bg-gradient-to-br from-gold/10 to-transparent rounded-2xl blur-xl">
+                        </div>
+                        <img id="hero-img" src="images/IMG_20260210_171424953.jpg" alt="Tasneem"
+                            class="hero-photo relative w-72 md:w-80 lg:w-96 h-[420px] md:h-[480px] lg:h-[540px]" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- scroll indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-indicator">
+                <span class="text-cream-dim text-xs tracking-widest uppercase">Scroll</span>
+                <div class="w-px h-10 bg-gradient-to-b from-gold to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- ── LETTER BOOK ── -->
+        <section id="letter" class="relative py-24 px-6 md:px-16 lg:px-24 overflow-hidden">
+            <h2 class="section-heading">A <span class="italic text-gold">Note</span> For You</h2>
+            <p class="section-subheading">Words I've been meaning to say</p>
+
+            <div class="book-wrapper">
+                <div class="book">
+                    <div class="book-spine"></div>
+                    <div class="book-corner tl"></div>
+                    <div class="book-corner tr"></div>
+                    <div class="book-corner bl"></div>
+                    <div class="book-corner br"></div>
+
+                    <!-- Page 1 -->
+                    <div class="book-page book-reveal">
+                        <div class="page-number">Page I</div>
+                        <h3>"Where It All Started..."</h3>
+                        <p>
+                            We met as alumni coordinators. Just random teammates working on events. I didn't expect
+                            much, but somewhere between the planning and the chaos, we became a team. From coordinating
+                            events to coordinating projects, it's been a cool journey.
+                        </p>
+                    </div>
+
+                    <!-- Page 2 -->
+                    <div class="book-page book-reveal">
+                        <div class="page-number">Page II</div>
+                        <h3>"The Hangout Spots..."</h3>
+                        <p>
+                            We've been to so many random places, just roaming around and exploring the city. Honestly,
+                            the places didn't even matter — it was just about hanging out, talking, and wasting time in
+                            the best way possible. It's those random moments that I actually remember.
+                        </p>
+                    </div>
+
+                    <!-- Page 3 -->
+                    <div class="book-page book-reveal">
+                        <div class="page-number">Page III</div>
+                        <h3>"The Code Wizard..."</h3>
+                        <p>
+                            Every hackathon, every project, every time I'm stuck on some annoying bug — you're there.
+                            You help with everything, fixing bugs and figuring things out like it's nothing. Seriously,
+                            I'd probably still be stuck on `syntax error` without you.
+                        </p>
+                    </div>
+
+                    <!-- Page 4 -->
+                    <div class="book-page book-reveal">
+                        <div class="page-number">Page IV</div>
+                        <h3>"Happy Birthday, Tasneem..."</h3>
+                        <p>
+                            I just want to say — I appreciate everything. Here's to more projects to build, more games
+                            to play, and an awesome year ahead. Happy Birthday! 🎉
+                        </p>
+                        <p class="signature">— Your Teammate & Friend 💛</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── BENTO GALLERY ── -->
+        <section id="gallery" class="py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
+            <h2 class="section-heading">Captured <span class="italic text-gold">Moments</span></h2>
+            <p class="section-subheading">A mosaic of memories</p>
+
+            <div class="bento-grid max-w-6xl mx-auto">
+                <!-- 1 – wide -->
+                <div class="bento-item bento-span-2 gallery-item" data-src="images/IMG_20260210_134849404.jpg">
+                    <img src="images/IMG_20260210_134849404.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 2 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260210_171323882.jpg">
+                    <img src="images/IMG_20260210_171323882.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 3 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260210_171406826.jpg">
+                    <img src="images/IMG_20260210_171406826.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 4 – tall -->
+                <div class="bento-item bento-span-row gallery-item" data-src="images/IMG_20260210_171421313.jpg">
+                    <img src="images/IMG_20260210_171421313.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 5 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260210_171424953.jpg">
+                    <img src="images/IMG_20260210_171424953.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 6 – video, wide -->
+                <div class="bento-item bento-span-2">
+                    <video src="images/VID_20260210_172320437.mp4" muted playsinline loop preload="metadata"
+                        onmouseenter="this.play()" onmouseleave="this.pause()"></video>
+                </div>
+                <!-- 7 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260210_172112318.jpg">
+                    <img src="images/IMG_20260210_172112318.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 8 – wide -->
+                <div class="bento-item bento-span-2 gallery-item" data-src="images/IMG_20260210_172341037.jpg">
+                    <img src="images/IMG_20260210_172341037.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 9 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260210_172342813.jpg">
+                    <img src="images/IMG_20260210_172342813.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 10 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260210_173132535.jpg">
+                    <img src="images/IMG_20260210_173132535.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 11 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20260104_021955620.jpg">
+                    <img src="images/IMG_20260104_021955620.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- NEW ITEMS -->
+                <!-- 12 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20250528_135723626.jpg">
+                    <img src="images/IMG_20250528_135723626.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 13 -->
+                <div class="bento-item gallery-item" data-src="images/IMG_20251121_165411650.jpg">
+                    <img src="images/IMG_20251121_165411650.jpg" alt="Memory" loading="lazy" />
+                </div>
+                <!-- 14 - New Video -->
+                <div class="bento-item bento-span-2">
+                    <video src="images/VID-20231229-WA0016.mp4" muted playsinline loop preload="metadata"
+                        onmouseenter="this.play()" onmouseleave="this.pause()"></video>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CODER'S CORNER ── -->
+        <section id="coder" class="py-24 px-6 md:px-16 lg:px-24 overflow-hidden">
+            <h2 class="section-heading">The <span class="italic text-gold">Coder's</span> Corner</h2>
+            <p class="section-subheading">Written in code, felt from the heart</p>
+
+            <div class="terminal" id="terminal-box">
+                <div class="terminal-bar">
+                    <div class="terminal-dot" style="background:#FF5F56;"></div>
+                    <div class="terminal-dot" style="background:#FFBD2E;"></div>
+                    <div class="terminal-dot" style="background:#27C93F;"></div>
+                    <span class="text-cream-dim text-xs ml-2 font-sans">tribute.js</span>
+                </div>
+                <div class="terminal-body" id="terminal-text"></div>
+            </div>
+        </section>
+
+        <!-- ── BIRTHDAY WISH ── -->
+        <section id="wish" class="py-32 px-6 text-center overflow-hidden">
+            <div class="max-w-2xl mx-auto wish-content">
+                <div class="w-16 h-px bg-gold mx-auto mb-8"></div>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    To Many <span class="italic text-gold">More</span> Adventures
+                </h2>
+                <p class="text-cream-dim leading-relaxed text-base md:text-lg mb-8">
+                    Tasneem, you make the world brighter just by being in it. Your passion for design, your coding
+                    brilliance, and your infectious laughter are gifts to everyone around you. Here's to another
+                    incredible year of pushing boundaries and creating magic. 🎉
+                </p>
+                <p class="font-serif text-2xl text-gold italic">Happy Birthday! 🎂</p>
+            </div>
+        </section>
+
+        <!-- ── FOOTER ── -->
+        <footer class="py-8 text-center border-t border-white/5">
+            <p class="text-cream-dim text-sm">
+                Made with <span class="footer-heart">♥</span> for Tasneem
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- ╔════════════════════════════════════════════╗ -->
+    <!-- ║            SCRIPTS                         ║ -->
+    <!-- ╚════════════════════════════════════════════╝ -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* ─── Preloader ─── */
+        const preloaderTL = gsap.timeline({
+            onComplete: () => {
+                gsap.to('#preloader', {
+                    yPercent: -100, duration: 0.8, ease: 'power3.inOut', onComplete: () => {
+                        document.getElementById('preloader').style.display = 'none';
+                    }
+                });
+                gsap.to('#main-content', { opacity: 1, duration: 0.5, delay: 0.3 });
+                initAnimations();
+
+                // Attempt to play music after preloader
+                const bgMusic = document.getElementById('bg-music');
+                bgMusic.volume = 0.1;
+                bgMusic.play().catch(e => console.log("Audio autoplay blocked"));
+            }
+        });
+
+        preloaderTL
+            .to('#preloader .line', { scaleX: 1, duration: 0.8, ease: 'power2.out' })
+            .to('#preloader h1', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3')
+            .to('#preloader .sub', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+            .to({}, { duration: 0.8 });
+
+        /* ─── Main Animations ─── */
+        function initAnimations() {
+
+            // Hero text stagger (chars)
+            const heroTitle = document.querySelector('.char-reveal');
+            /* Simple split text logic for animation */
+            /* Note: In a real prod setup we'd use SplitText plugin, but here's a CSS-less manual way or just block reveal */
+            gsap.from('.char-reveal', {
+                y: 100, opacity: 0, duration: 1.5, ease: 'power4.out', delay: 0.3, skewY: 7
+            });
+            gsap.from('.hero-text p', {
+                opacity: 0, y: 30, duration: 1, ease: 'power3.out', delay: 0.8
+            });
+            gsap.from('.hero-text a', {
+                opacity: 0, y: 20, duration: 1, ease: 'back.out(1.7)', stagger: 0.15, delay: 1
+            });
+
+            // Hero photo floating
+            gsap.from('.hero-photo-wrap', {
+                opacity: 0, scale: 0.9, duration: 1, ease: 'power3.out', delay: 0.5
+            });
+            gsap.to('#hero-img', {
+                y: -18, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1
+            });
+
+            // Scroll indicator
+            gsap.to('.scroll-indicator', {
+                opacity: 0, y: 20, scrollTrigger: {
+                    trigger: '#hero', start: 'bottom 80%', toggleActions: 'play none none reverse'
+                }
+            });
+
+            // Book pages — staggered reveal
+            gsap.utils.toArray('.book-reveal').forEach((el, i) => {
+                gsap.from(el, {
+                    opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: i * 0.15,
+                    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+                });
+            });
+
+            // Bento gallery staggered reveal
+            gsap.from('.bento-item', {
+                opacity: 0, y: 60, scale: 0.92, duration: 0.7,
+                ease: 'power3.out', stagger: 0.1,
+                scrollTrigger: { trigger: '#gallery', start: 'top 75%', toggleActions: 'play none none none' }
+            });
+
+            // Terminal typing
+            ScrollTrigger.create({
+                trigger: '#coder',
+                start: 'top 70%',
+                once: true,
+                onEnter: startTyping
+            });
+
+            // Birthday wish
+            gsap.from('.wish-content', {
+                opacity: 0, y: 50, duration: 1, ease: 'power3.out',
+                scrollTrigger: { trigger: '#wish', start: 'top 75%', toggleActions: 'play none none none' }
+            });
+        }
+
+        /* ─── Terminal Typing Effect ─── */
+        const terminalLines = [
+            '<span class="comment">// tribute.js — for someone truly special</span>',
+            '',
+            '<span class="keyword">const</span> tasneem = {',
+            '  title: <span class="string">"The Most Amazing Friend"</span>,',
+            '  vibe: <span class="string">"Kind, brilliant, and endlessly inspiring"</span>,',
+            '  superpower: <span class="string">"Making everyone around her smile"</span>,',
+            '  birthday: <span class="string">"February 11, 2026"</span>,',
+            '  deserves: <span class="string">"All the happiness in the world"</span>,',
+            '};',
+            '',
+            'console.<span class="keyword">log</span>(<span class="string">`Happy Birthday, ${tasneem.title}! 🎂`</span>);',
+            '<span class="comment">// Output: Happy Birthday, The Most Amazing Friend! 🎂</span>',
+        ];
+
+        let lineIdx = 0, charIdx = 0, typingStarted = false;
+        const terminalEl = document.getElementById('terminal-text');
+
+        function startTyping() {
+            if (typingStarted) return;
+            typingStarted = true;
+            typeLine();
+        }
+
+        function typeLine() {
+            if (lineIdx >= terminalLines.length) {
+                terminalEl.innerHTML += '<span class="cursor-blink"></span>';
+                return;
+            }
+            const line = terminalLines[lineIdx];
+            if (line === '') {
+                terminalEl.innerHTML += '<br/>';
+                lineIdx++;
+                setTimeout(typeLine, 150);
+                return;
+            }
+            // We type the raw text but render the HTML
+            // For effect, we'll reveal character by character on the stripped text
+            const stripped = line.replace(/<[^>]*>/g, '');
+            if (charIdx === 0) {
+                terminalEl.innerHTML += '<div class="terminal-line" style="min-height:1.4em;"><span class="prompt">❯ </span></div>';
+            }
+            const currentLineEl = terminalEl.querySelector('.terminal-line:last-child');
+            charIdx++;
+            if (charIdx <= stripped.length) {
+                // Render the full HTML but clamp visible characters
+                currentLineEl.innerHTML = '<span class="prompt">❯ </span>' + getPartialHTML(line, charIdx);
+                setTimeout(typeLine, 28);
+            } else {
+                currentLineEl.innerHTML = '<span class="prompt">❯ </span>' + line;
+                charIdx = 0;
+                lineIdx++;
+                setTimeout(typeLine, 200);
+            }
+        }
+
+        // Utility: render HTML tags fully but limit visible text characters
+        function getPartialHTML(html, maxChars) {
+            let result = '', visible = 0, inTag = false;
+            for (let i = 0; i < html.length; i++) {
+                if (html[i] === '<') { inTag = true; result += html[i]; continue; }
+                if (html[i] === '>') { inTag = false; result += html[i]; continue; }
+                if (inTag) { result += html[i]; continue; }
+                if (visible < maxChars) { result += html[i]; visible++; }
+                else break;
+            }
+            return result;
+        }
+
+        /* ─── Floating Blobs — Mouse Follow ─── */
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 40;
+            const y = (e.clientY / window.innerHeight - 0.5) * 40;
+            gsap.to('#blob1', { x: x * 1.2, y: y * 1.2, duration: 2, ease: 'power1.out' });
+            gsap.to('#blob2', { x: -x * 0.8, y: -y * 0.8, duration: 2.5, ease: 'power1.out' });
+            gsap.to('#blob3', { x: x * 0.5, y: y * 0.5, duration: 3, ease: 'power1.out' });
+        });
+
+        /* ─── Music Toggle ─── */
+        const musicBtn = document.getElementById('music-btn');
+        const bgMusic = document.getElementById('bg-music');
+        let musicPlaying = false;
+
+        // Set volume to 10%
+        bgMusic.volume = 0.1;
+
+        // Try to autoplay
+        const playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                musicPlaying = true;
+                musicBtn.classList.add('playing');
+            }).catch(error => {
+                console.log("Autoplay prevented by browser. User interaction required.");
+            });
+        }
+
+        musicBtn.addEventListener('click', () => {
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+            } else {
+                bgMusic.play().catch(() => { });
+                musicBtn.classList.add('playing');
+            }
+            musicPlaying = !musicPlaying;
+        });
+
+        // Fallback: Start music on first click anywhere if not playing
+        // SUPER RELIABLE AUTOPLAY FALLBACK
+        // Browsers require a user gesture. We'll listen for *any* user interaction to start audio.
+        const startAudio = () => {
+            if (!musicPlaying) {
+                bgMusic.play().then(() => {
+                    musicPlaying = true;
+                    musicBtn.classList.add('playing');
+                    // Remove listeners once successful
+                    ['click', 'scroll', 'mousemove', 'touchstart'].forEach(e => document.body.removeEventListener(e, startAudio));
+                }).catch(() => { });
+            }
+        };
+
+        ['click', 'scroll', 'mousemove', 'touchstart'].forEach(e => {
+            document.body.addEventListener(e, startAudio, { once: true });
+        });
+
+        // Also trigger specifically on hero hover
+        const heroSection = document.getElementById('hero');
+        if (heroSection) {
+            heroSection.addEventListener('mouseenter', startAudio, { once: true });
+            heroSection.addEventListener('click', startAudio, { once: true });
+        }
+
+        /* ─── Lightbox ─── */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                lightboxImg.src = item.dataset.src;
+                lightbox.classList.add('active');
+                gsap.fromTo(lightboxImg, { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' });
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            gsap.to(lightboxImg, {
+                scale: 0.85, opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
+                    lightbox.classList.remove('active');
+                }
+            });
+        });
+
+        /* ─── Parallax Blobs ─── */
+        gsap.to('.blob', {
+            yPercent: -20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1
+            }
+        });
+
+        /* ─── Magnetic Buttons ─── */
+        document.querySelectorAll('a.px-6, button#music-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: 'power2.out' });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
+            });
+        });
+    </script>
+</body>
+
+</html>
